@@ -71,4 +71,3 @@ function App() {
 }
 
 export default App;
-Movix_Vedios_Streaming_Project
