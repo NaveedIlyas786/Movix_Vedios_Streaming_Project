@@ -16,7 +16,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   const dispatch = useDispatch();
   const { url } = useSelector((state) => state.home); //! In  " useSelector " there will be a call back function where we will get our store
-
+console.log(url);
   //! Function ⇓ ⇓
   const fetchAPiConfiguration = () => {
     fetchDataFromApi("/configuration").then((res) => {
@@ -43,7 +43,6 @@ function App() {
    endPoints.forEach((url)=>{
     return promises.push(fetchDataFromApi(`/genre/${url}/list`))
    })
-
    const data=await Promise.all(promises)
    console.log(data);
    data.map(({genres})=>{
