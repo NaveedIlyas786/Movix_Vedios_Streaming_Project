@@ -1,12 +1,16 @@
-.genres{
-    display:flex;
-    gap:5px;
-    .genre{
-        background-color: var(--pink);
-        padding: 3px 5px;
-        font-size: 12px;
-        border-radius: 4px;
-        color: white;
-        white-space: nowrap;
-    }
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .genre {
+    background: linear-gradient(135deg, #f89e00, #dd395f);
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    line-height: 1;
+    border-radius: 999px;
+    color: #fff;
+    white-space: nowrap;
+    box-shadow: 0 2px 10px #f89e00;
+  }
 }

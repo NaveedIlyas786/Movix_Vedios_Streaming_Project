@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; //! "useNavigate" is used to perform task  "to shift the searhing thing at URL location ::when we press "Enter" button after searching something in Input Field
+import { useNavigate } from "react-router-dom";
 import "./heroBannerstyle.scss";
 import useFetch from "../../../hooks/useFetch";
 import { useSelector } from "react-redux";
-import  ContentWrapper  from "../../../components/contentWrapper/ContentWrapper";
-import Lazyimg from "../../../components/lazyloadimage/Mylazyimg";
+import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 
 const HeroBanner = () => {
   const [background, setBackground] = useState("");
   const [query, setQuery] = useState("");
-  const { data, loading } = useFetch("/movie/upcoming");
-  const navigate = useNavigate(); //! here we create an instance of "useNavigate".
+  const { data } = useFetch("/movie/upcoming");
+  const navigate = useNavigate();
   const { url } = useSelector((state) => state.home);
-  
+
   useEffect(() => {
-    const bg =
-      url.backdrop +
-      data?.results?.[Math.floor(Math.random() * 20)]?.backdrop_path;
-    setBackground(bg);
-    // console.log(bg);
-  }, [data]);
+    if (data?.results?.length && url.backdrop) {
+      const bg =
+        url.backdrop +
+        data.results[Math.floor(Math.random() * 20)]?.backdrop_path;
+      setBackground(bg);
+    }
+  }, [data, url.backdrop]);
 
   const searchQueryHandler = (event) => {
-    if ((event?.key === "Enter" || event === "searchButton") && query.length > 0 || event.button) {
+    if (((event?.key === "Enter" || event === "searchButton") && query.length > 0) || event.button) {
       navigate(`/search/${query}`);
     }
   };
+
   return (
     <div className="heroBanner">
       <div className="backdrop-img">
-        {!loading && <Lazyimg src={background} />}
+        {background && (
+          <img src={background} alt="" fetchpriority="high" decoding="async" />
+        )}
       </div>
       <div className="opacity-layer"></div>
       <ContentWrapper>
